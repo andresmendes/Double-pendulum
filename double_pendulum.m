@@ -15,18 +15,18 @@ g   = 9.81;                     % Gravity               [m/s2]
 parameters = [mA mB rA rB g];
 
 %% Initial conditions
-thA0    = 99/100*pi;                  % Orientation rod A     [rad]
-thB0    = 99/100*pi;                    % Orientation rod B     [rad]
+thA0    = 99/100*pi;            % Orientation rod A     [rad]
+thB0    = 99/100*pi;            % Orientation rod B     [rad]
 dthA0   = 0;                    % Angular speed A       [rad/s]
-dthB0   = 0;                   % Angular speed B       [rad/s]
+dthB0   = 0;                    % Angular speed B       [rad/s]
 
 x0 = [thA0 thB0 dthA0 dthB0];
 
 %% Simulation
-tf      = 60;                   % Final time                    [s]
-fR      = 60;                   % Frame rate                    [fps]
-dt      = 1/fR;                 % Time resolution               [s]
-time    = linspace(0,tf,tf*fR); % Time                          [s]
+tf      = 60;                   % Final time            [s]
+fR      = 60;                   % Frame rate            [fps]
+dt      = 1/fR;                 % Time resolution       [s]
+time    = linspace(0,tf,tf*fR); % Time                  [s]
 
 options = odeset('RelTol',1e-6);
 [TOUT,XOUT] = ode45(@(t,x) double_pendulum_model(t,x,parameters),time,x0);
@@ -51,7 +51,7 @@ mBPosY = mBAPosY + mAPosY;
 
 %% Animation
 
-figure(2)
+figure
 hold on ; grid on ; box on ; axis equal
 set(gca,'XLim',[-1.1*(rA+rB) 1.1*(rA+rB)])
 set(gca,'YLim',[-1.1*(rA+rB) 1.1*(rA+rB)])
@@ -97,11 +97,11 @@ close(v);
 
 function dx = double_pendulum_model(~,x,parameters)
     % Parameters
-    mA  = parameters(1);                % Mass A                [kg]
-    mB  = parameters(2);                % Mass B                [kg]
-    rA  = parameters(3);                % Length rod A          [m]
-    rB  = parameters(4);                % Length rod B          [m]
-    g   = parameters(5);                % Gravity               [m/s2]
+    mA  = parameters(1);        % Mass A                [kg]
+    mB  = parameters(2);        % Mass B                [kg]
+    rA  = parameters(3);        % Length rod A          [m]
+    rB  = parameters(4);        % Length rod B          [m]
+    g   = parameters(5);        % Gravity               [m/s2]
 
     % States
     thA     = x(1);
