@@ -52,13 +52,17 @@ mBPosY = mBAPosY + mAPosY;
 %% Animation
 
 figure
+% set(gcf,'Position',[50 50 1280 720]) % YouTube: 720p
+% set(gcf,'Position',[50 50 854 480]) % YouTube: 480p
+set(gcf,'Position',[50 50 640 640]) % Instagram
+
 hold on ; grid on ; box on ; axis equal
 set(gca,'XLim',[-1.1*(rA+rB) 1.1*(rA+rB)])
 set(gca,'YLim',[-1.1*(rA+rB) 1.1*(rA+rB)])
 set(gca,'XTick',[],'YTick',[])
 
 % Create and open video writer object
-v = VideoWriter('double_pendulum.avi');
+v = VideoWriter('double_pendulum.mp4','MPEG-4');
 v.Quality   = 100;
 v.FrameRate = fR;
 open(v);
