@@ -2,7 +2,7 @@
 # Double pendulum
 Simulation and animation of a double pendulum.
 
-Watch the animation on YouTube: https://youtu.be/ENf9Q9e-kaw
+Watch the animation on YouTube: https://youtu.be/AeWAzKu9Itw
 
 ![Logo](https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/e5b218a0-0735-4975-bdd6-2f2cbce675ed/17a4bb3d-1df6-409f-a878-5b8bc51abd8c/images/1639509164.png)
 
