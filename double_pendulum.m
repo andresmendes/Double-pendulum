@@ -7,7 +7,7 @@ clear ; close all ; clc
 
 %% Parameters
 mA  = 1;                        % Mass A                [kg]
-mB  = 1;                        % Mass B                [kg]
+mB  = 0.1;                        % Mass B                [kg]
 rA  = 5;                        % Length of rod A       [m]
 rB  = 5;                        % Length of rod B       [m]
 g   = 9.81;                     % Gravity               [m/s2]
@@ -15,10 +15,10 @@ g   = 9.81;                     % Gravity               [m/s2]
 parameters = [mA mB rA rB g];
 
 %% Initial conditions
-thA0    = 99/100*pi;            % Orientation rod A     [rad]
-thB0    = 99/100*pi;            % Orientation rod B     [rad]
-dthA0   = 0;                    % Angular speed A       [rad/s]
-dthB0   = 0;                    % Angular speed B       [rad/s]
+thA0    = pi;            % Orientation rod A     [rad]
+thB0    = pi;            % Orientation rod B     [rad]
+dthA0   = 2;                    % Angular speed A       [rad/s]
+dthB0   = -2;                    % Angular speed B       [rad/s]
 
 x0 = [thA0 thB0 dthA0 dthB0];
 
@@ -51,15 +51,18 @@ mBPosY = mBAPosY + mAPosY;
 
 %% Animation
 
+c = cool(6); % Colormap
+
 figure
-% set(gcf,'Position',[50 50 1280 720]) % YouTube: 720p
-% set(gcf,'Position',[50 50 854 480]) % YouTube: 480p
-set(gcf,'Position',[50 50 640 640]) % Instagram
+% set(gcf,'Position',[50 50 1280 720])  % YouTube: 720p
+% set(gcf,'Position',[50 50 854 480])   % YouTube: 480p
+set(gcf,'Position',[50 50 640 640])     % Social
 
 hold on ; grid on ; box on ; axis equal
 set(gca,'XLim',[-1.1*(rA+rB) 1.1*(rA+rB)])
 set(gca,'YLim',[-1.1*(rA+rB) 1.1*(rA+rB)])
 set(gca,'XTick',[],'YTick',[])
+set(gca,'Color','k')
 
 % Create and open video writer object
 v = VideoWriter('double_pendulum.mp4','MPEG-4');
@@ -69,27 +72,27 @@ open(v);
 
 for i = 1:length(mAPosX)
     cla
-    
-    % Trajectory A
-    plot(mAPosX(1:i),mAPosY(1:i),'r')
-    % Trajecotry B
-    plot(mBPosX(1:i),mBPosY(1:i),'g')
 
     % Rod 1
-    plot([0 mAPosX(i)],[0 mAPosY(i)],'b')
+    plot([0 mAPosX(i)],[0 mAPosY(i)],'w','LineWidth',2)
     % Rod 2
-    plot([mAPosX(i) mBPosX(i)],[mAPosY(i) mBPosY(i)],'b')
+    plot([mAPosX(i) mBPosX(i)],[mAPosY(i) mBPosY(i)],'w','LineWidth',2)
 
     % Origin
-    p = plot(0,0,'k');
-    set(p,'Marker','*','MarkerSize',10)
+    p = plot(0,0,'wo');
+    set(p,'MarkerFaceColor','w','MarkerSize',5)
 
+    % Trajectory A
+    plot(mAPosX(1:i),mAPosY(1:i),'color',c(6,:),'LineWidth',3)
+    % Trajecotry B
+    plot(mBPosX(1:i),mBPosY(1:i),'color',c(4,:),'LineWidth',3)
+    
     % Position A
     p = plot(mAPosX(i),mAPosY(i),'r');
-    set(p,'Marker','o','MarkerFaceColor','r','Color','k','MarkerSize',10)
+    set(p,'Marker','o','MarkerFaceColor',c(6,:),'Color','k','MarkerSize',15)
     % Position B
     p = plot(mBPosX(i),mBPosY(i),'g');
-    set(p,'Marker','o','MarkerFaceColor','g','Color','k','MarkerSize',10)
+    set(p,'Marker','o','MarkerFaceColor',c(4,:),'Color','k','MarkerSize',15)
 
     frame = getframe(gcf);
     writeVideo(v,frame);
